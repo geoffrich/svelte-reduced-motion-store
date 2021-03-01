@@ -1,18 +1,16 @@
 import { readable } from 'svelte/store';
 import { tweened } from 'svelte/motion';
 
-const reducedMotionQuery = '(prefers-reduced-motion: no-preference)';
+const reducedMotionQuery = '(prefers-reduced-motion: reduce)';
 
-function getInitialMotionPreference() {
-	const hasNoMotionPreference = window.matchMedia(reducedMotionQuery).matches;
-	return !hasNoMotionPreference;
-}
+const getInitialMotionPreference = () =>
+	window.matchMedia(reducedMotionQuery).matches;
 
 export const reducedMotion = readable(false, (set) => {
 	const mediaQueryList = window.matchMedia(reducedMotionQuery);
 
 	const updateMotionPreference = (event) => {
-		set(!event.matches);
+		set(event.matches);
 	};
 
 	mediaQueryList.addEventListener('change', updateMotionPreference);
