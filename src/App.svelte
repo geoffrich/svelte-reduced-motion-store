@@ -1,19 +1,16 @@
 <script>
-	import reducedMotion from './reducedMotion';
+	import { reducedMotion, tweenedReducedMotion } from './reducedMotion';
 	import { fly } from 'svelte/transition';
-	import { tweened } from 'svelte/motion';
 
 	let showCards = false;
-	const progress = tweened(0);
+	const progress = tweenedReducedMotion(0);
 
 	function toggleCards() {
 		showCards = !showCards;
 	}
 
 	function toggleProgress() {
-		progress.update((current) => (current === 0 ? 100 : 0), {
-			duration: $reducedMotion ? 0 : 400
-		});
+		progress.update((current) => (current === 0 ? 100 : 0));
 	}
 </script>
 
