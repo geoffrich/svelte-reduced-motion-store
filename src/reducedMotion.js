@@ -20,5 +20,5 @@ export default readable(false, (set) => {
 
 	return () => {
 		mediaQueryList.removeEventListener('change', updateMotionPreference);
-	}
+	};
 });
