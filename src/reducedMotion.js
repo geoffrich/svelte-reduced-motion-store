@@ -55,13 +55,13 @@ export const tweenedReducedMotion = function (value, options) {
 };
 
 const noOp = () => {};
-export const flyReducedMotion = derived(
-	reducedMotion,
-	($reducedMotion, set) => {
+export const transitionReducedMotion = (transition) =>
+	derived(reducedMotion, ($reducedMotion, set) => {
 		if ($reducedMotion) {
 			set(noOp);
 		} else {
-			set(fly);
+			set(transition);
 		}
-	}
-);
+	});
+
+export const flyReducedMotion = transitionReducedMotion(fly);
