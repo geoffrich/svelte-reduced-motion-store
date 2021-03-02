@@ -1,6 +1,9 @@
 <script>
-	import { reducedMotion, tweenedReducedMotion } from './reducedMotion';
-	import { fly } from 'svelte/transition';
+	import {
+		reducedMotion,
+		tweenedReducedMotion,
+		flyReducedMotion
+	} from './reducedMotion';
 
 	let showCards = false;
 	const progress = tweenedReducedMotion(0);
@@ -27,7 +30,10 @@
 		<div class="card-container">
 			{#each new Array(5) as _, i}
 				<div
-					transition:fly={{ y: 100, delay: $reducedMotion ? 0 : i * 100 }}
+					transition:$flyReducedMotion={{
+						y: 100,
+						delay: i * 100
+					}}
 					class="card"
 				>
 					Card {i + 1}
