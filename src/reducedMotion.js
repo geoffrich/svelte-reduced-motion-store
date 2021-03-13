@@ -1,6 +1,6 @@
 import { readable, derived } from 'svelte/store';
 import { tweened } from 'svelte/motion';
-import { fly } from 'svelte/transition';
+import { fly, scale } from 'svelte/transition';
 
 const reducedMotionQuery = '(prefers-reduced-motion: reduce)';
 
@@ -55,13 +55,14 @@ export const tweenedReducedMotion = function (value, options) {
 };
 
 const noOp = () => {};
-export const transitionReducedMotion = (transition) =>
+export const transitionReducedMotion = (transition, replacement = noOp) =>
 	derived(reducedMotion, ($reducedMotion, set) => {
 		if ($reducedMotion) {
-			set(noOp);
+			set(replacement);
 		} else {
 			set(transition);
 		}
 	});
 
 export const flyReducedMotion = transitionReducedMotion(fly);
+export const scaleReducedMotion = transitionReducedMotion(scale);

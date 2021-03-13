@@ -2,11 +2,16 @@
 	import {
 		reducedMotion,
 		tweenedReducedMotion,
-		flyReducedMotion
+		transitionReducedMotion
 	} from './reducedMotion';
+	import { fly, fade } from 'svelte/transition';
 
 	let showCards = false;
 	const progress = tweenedReducedMotion(0);
+
+	const customFade = (node, params) => fade(node, { duration: 300 });
+	//$: cardTransition = $reducedMotion ? customFade : fly;
+	const cardTransition = transitionReducedMotion(fly, customFade);
 
 	function toggleCards() {
 		showCards = !showCards;
@@ -30,10 +35,7 @@
 		<div class="card-container">
 			{#each new Array(5) as _, i}
 				<div
-					transition:$flyReducedMotion={{
-						y: 100,
-						delay: i * 100
-					}}
+					transition:$cardTransition={{ y: 300, delay: i * 100 }}
 					class="card"
 				>
 					Card {i + 1}
@@ -63,6 +65,8 @@
 
 	.card-container {
 		display: flex;
+		gap: 2em;
+		justify-content: center;
 	}
 
 	.card {
